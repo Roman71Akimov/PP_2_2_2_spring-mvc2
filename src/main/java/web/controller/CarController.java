@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import web.service.CarService;
-import web.service.CarServiceImpl;
+
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,8 +21,12 @@ public class CarController {
     @GetMapping("/cars")
     public String showCars(HttpServletRequest request, Model model) {
         String count = request.getParameter("count");
+
         if (count != null) {
             int carCounter = Integer.parseInt(count);
+            if (carCounter < 0){
+                return "fail";
+            }
             model.addAttribute("carList", carService.showCars(carCounter));
         } else model.addAttribute("carList", carService.showCars());
         return "cars";
