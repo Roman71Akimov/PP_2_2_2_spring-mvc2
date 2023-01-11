@@ -16,11 +16,6 @@ public class CarServiceImpl implements CarService{
     public CarServiceImpl(CarDao carDao) {
         this.carDao = carDao;
     }
-
-   // @Override
-//    public List<Car> showCars() {
-//        return carDao.showCars();
-//    }
     @Override
     public List<Car> showCars(String count) throws IOException {
 
@@ -31,7 +26,7 @@ public class CarServiceImpl implements CarService{
             }
         return carDao.showCars(carCounter);
         }
-        return carDao.showCars();
+        return carDao.showCars(5);
     }
 
 }
