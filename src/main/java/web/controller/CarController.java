@@ -8,6 +8,7 @@ import web.service.CarService;
 
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 @Controller
 public class CarController {
@@ -21,14 +22,11 @@ public class CarController {
     @GetMapping("/cars")
     public String showCars(HttpServletRequest request, Model model) {
         String count = request.getParameter("count");
-
-        if (count != null) {
-            int carCounter = Integer.parseInt(count);
-            if (carCounter < 0){
-                return "fail";
-            }
-            model.addAttribute("carList", carService.showCars(carCounter));
-        } else model.addAttribute("carList", carService.showCars());
+        try {
+            model.addAttribute("carList", carService.showCars(count));
+        } catch (IOException e) {
+            return "fail";
+        }
         return "cars";
     }
 
